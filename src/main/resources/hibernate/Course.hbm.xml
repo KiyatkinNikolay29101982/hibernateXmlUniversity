@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org./xsd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.example.entity.Course">
+        <id name="id" type="java.lang.Long" >
+            <generator class="identity"></generator>
+        </id>
+
+        <property name="title" column="title"/>
+
+        <bag name="students">
+            <key>
+                <column name="course_id" not-null="true"/>
+            </key>
+            <many-to-many entity-name="org.example.entity.Student">
+                <column name="student_id" not-null="true"/>
+            </many-to-many>
+        </bag>
+
+
+
+        <bag name="lessons">
+            <key>
+                <column name="course_id" not-null="true"/>
+            </key>
+            <one-to-many class="org.example.entity.Lesson"/>
+        </bag>
+
+        <many-to-one name="university" class="org.example.entity.University">
+            <column name="university_id"/>
+        </many-to-one>
+
+
+    </class>
+</hibernate-mapping>
